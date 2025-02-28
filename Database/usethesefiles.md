@@ -48,3 +48,21 @@ console.log("User Collection Stats:", stats);
 const { getTenantModel } = require("./database/multiTenantHelper");
 const TenantUser = getTenantModel("tenant1", "User", userSchema);
 const users = await TenantUser.find();
+
+11) Improve Connection Pooling (dbPool.js)
+const mongoose = require("./database/dbPool"); // Use in server.js
+
+12) Paginate Large Data (queryOptimizer.js)
+const { paginate } = require("./database/queryOptimizer");
+const users = await paginate(User, 1, 10, { role: "admin" }, { name: 1, email: 1 });
+
+13) Run Automatic Backups (backupHelper.js)
+const { backupDB } = require("./database/backupHelper");
+backupDB(); // Run this periodically using a cron job
+
+14) Implement Role-Based Access (rbacHelper.js)
+const { checkPermission } = require("./database/rbacHelper");
+checkPermission(user, "admin"); // Throws error if user is not an admin
+
+15) Monitor Database Events (dbEventListener.js)
+require("./database/dbEventListener");
