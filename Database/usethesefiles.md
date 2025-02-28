@@ -66,3 +66,28 @@ checkPermission(user, "admin"); // Throws error if user is not an admin
 
 15) Monitor Database Events (dbEventListener.js)
 require("./database/dbEventListener");
+
+16) Apply Indexing (indexingHelper.js)
+const { applyIndexes } = require("./database/indexingHelper");
+applyIndexes(User, [{ email: 1, unique: true }]);
+
+17) Perform Transactions (transactionHelper.js)
+const { runTransaction } = require("./database/transactionHelper");
+runTransaction(async (session) => {
+  await User.create([{ name: "John Doe", email: "john@example.com" }], { session });
+  await Order.create([{ userId: "123", product: "Laptop" }], { session });
+});
+
+18) Encrypt & Decrypt Data (encryptionHelper.js)
+const { encrypt, decrypt } = require("./database/encryptionHelper");
+const encryptedText = encrypt("Sensitive Data");
+console.log("Encrypted:", encryptedText);
+console.log("Decrypted:", decrypt(encryptedText));
+
+19) Seed Initial Data (seedData.js)
+const seedUsers = require("./database/seedData");
+seedUsers();
+
+20) Watch Collection for Changes (changeStreamHelper.js)
+const { watchCollection } = require("./database/changeStreamHelper");
+watchCollection(User);
